@@ -1,0 +1,7 @@
+@import "./Mixins";
+@import "./Variables";
+
+.wrap .main {
+  padding-top: $kapka;
+  overflow: visible;
+}

@@ -1,0 +1,11 @@
+@import "./Mixins";
+
+.creating-page {
+  margin-top: 30px;
+  .creating-page__form {
+    @include flex-mother(column, center, center);
+    .creating-page__select{
+      max-width: 300px;
+    }
+  }
+}

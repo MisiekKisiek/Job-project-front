@@ -1,0 +1,103 @@
+@import "./Mixins";
+@import "./Variables";
+
+.navigation {
+  z-index: 9;
+  position: fixed;
+  width: 100vw;
+  height: $kapka;
+  margin-top: 0;
+  .main-nav {
+    padding: 20px;
+    background-color: #eee;
+    display: flex;
+    justify-content: right;
+    .main-nav__list-item {
+      position: relative;
+      @include flex-mother();
+      flex-grow: 1;
+      margin: 0 auto;
+      list-style-type: none;
+      .main-nav__burger {
+        display: none;
+        position: absolute;
+        top: 0px;
+        right: 5px;
+        font-size: 25px;
+        color: #555;
+        cursor: pointer;
+      }
+      .main-nav__item {
+        flex-basis: 15%;
+        max-width: 100px;
+        min-width: 80px;
+        text-align: center;
+        .main-nav__item-link:first-child {
+          margin: 0 5px 0 0;
+          width: 100%;
+        }
+        .main-nav__item-link {
+          display: block;
+          width: 80%;
+          min-width: 80px;
+          margin: 0 auto;
+          padding: 5px 0;
+          color: #555;
+          &:hover {
+          }
+          &.selected {
+            font-weight: 600;
+          }
+          .main-nav__item-link-img {
+            display: inline-block;
+            border-right: 1px solid #999;
+            width: 100%;
+            padding-right: 15px;
+          }
+        }
+      }
+      .main-nav__item:last-child {
+        clear: both;
+        flex-grow: 1;
+        max-width: 10000px;
+        text-align: right;
+        .main-nav__item-link {
+          float: right;
+          width: 40%;
+          max-width: 100px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .main-nav {
+    .main-nav__list-item {
+      @include flex-mother($flex-direction: column);
+      .main-nav__burger {
+        display: block;
+      }
+      .main-nav__item {
+        text-align: left;
+      }
+      .main-nav__item + .main-nav__item {
+        position: absolute;
+        top: -1000px;
+      }
+      .main-nav__item + .main-nav__item.active {
+        position: relative;
+        top: 0px;
+      }
+
+      .main-nav__item:last-child {
+        max-width: 100px;
+        .main-nav__item-link {
+          float: none;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
