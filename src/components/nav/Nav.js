@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 class Nav extends Component {
-  state = {
-    windowWidth: 0,
-    windowHeight: 0,
-  };
+  state = {};
 
   navCollapse = (action) => {
     const items = document.querySelectorAll(
@@ -17,6 +14,29 @@ class Nav extends Component {
       items.forEach((e) => e.classList.remove("active"));
     }
   };
+
+  changeProfileIcon = () => {
+    window.addEventListener("resize", () => {
+      const profil = document.querySelector(".main-nav__item-user");
+      if (window.innerWidth < 700) {
+        profil.textContent = "User";
+      }
+      if (window.innerWidth > 700) {
+        profil.textContent = "";
+        profil.appendChild('<i className="fas fa-users"></i>');
+      }
+    });
+  };
+
+  userMenuCollapse = () => {
+    const item = document.querySelector(".main-nav__unlogged");
+    item.classList.toggle("main-nav__unlogged--active");
+  };
+
+  // componentDidMount() {
+  //   this.changeProfileIcon();
+  // }
+
   render() {
     return (
       <>
@@ -89,16 +109,48 @@ class Nav extends Component {
               </NavLink>
             </li>
             <li className="main-nav__item">
-              <NavLink
-                to="/LogIn"
-                activeClassName="selected"
-                className="main-nav__item-link"
+              <div
+                className="main-nav__item-link main-nav__item-user"
                 onClick={() => {
-                  this.navCollapse("normal");
+                  this.userMenuCollapse();
                 }}
               >
                 <i className="fas fa-users"></i>
-              </NavLink>
+                <div className="main-nav__logged main-nav__item-user-wrap">
+                  <ul className="main-nav__logged-list main-nav__item-user-list">
+                    {/* <li className="main-nav__unlogged-item main-nav__item-user-item">
+                      <NavLink to="/LogIn">Login</NavLink>
+                    </li>
+                    <li className="main-nav__unlogged-item main-nav__item-user-item">
+                      <NavLink to="/Register">Register</NavLink>
+                    </li> */}
+                  </ul>
+                </div>
+                <div className="main-nav__unlogged main-nav__item-user-wrap">
+                  <ul className="main-nav__unlogged-list main-nav__item-user-list">
+                    <li className="main-nav__unlogged-item main-nav__item-user-item">
+                      <NavLink
+                        to="/LogIn"
+                        onClick={() => {
+                          this.navCollapse("normal");
+                        }}
+                      >
+                        Login
+                      </NavLink>
+                    </li>
+                    <li className="main-nav__unlogged-item main-nav__item-user-item">
+                      <NavLink
+                        to="/Register"
+                        onClick={() => {
+                          this.navCollapse("normal");
+                        }}
+                      >
+                        Register
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </li>
           </ul>
         </nav>

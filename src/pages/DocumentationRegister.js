@@ -3,11 +3,15 @@ import FiletrComponent from "../components/documentationRegister/FilterComponent
 import DocumentationWrap from "../components/documentationRegister/DocumentationWrap";
 
 class DocumentationRegister extends Component {
-  state = {
-    documentationAll: [],
-    filterName: "",
-    filterDate: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      documentationAll: [],
+      filterName: "",
+      filterDate: "",
+    };
+    this.handleInputsFilter = this.handleInputsFilter.bind(this);
+  }
 
   async getDocumentationData() {
     await fetch(
@@ -33,7 +37,7 @@ class DocumentationRegister extends Component {
     });
   }
 
-  handleInputsFilter = (e) => {
+  async handleInputsFilter(e) {
     e.preventDefault();
     if (e.target.type === "text") {
       this.setState({
@@ -49,7 +53,7 @@ class DocumentationRegister extends Component {
         filterDate: "",
       });
     }
-  };
+  }
 
   render() {
     return (
