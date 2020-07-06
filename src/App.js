@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import CreatingPage from "./pages/CreatingPage";
 import DocumentationRegister from "./pages/DocumentationRegister";
+import RegisterAndLoginPage from "./pages/RegisterAngLoginPage";
 
 class App extends Component {
   state = {};
@@ -25,6 +26,12 @@ class App extends Component {
               </Route>
               <Route path="/Documentation-Register">
                 <DocumentationRegister></DocumentationRegister>
+              </Route>
+              <Route path="/LogIn">
+                <RegisterAndLoginPage></RegisterAndLoginPage>
+              </Route>
+              <Route path="/Register">
+                <RegisterAndLoginPage></RegisterAndLoginPage>
               </Route>
             </div>
           </div>

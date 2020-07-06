@@ -28,9 +28,13 @@ class Nav extends Component {
     });
   };
 
-  userMenuCollapse = () => {
+  userMenuCollapse = (type) => {
     const item = document.querySelector(".main-nav__unlogged");
-    item.classList.toggle("main-nav__unlogged--active");
+    if (type === "main") {
+      item.classList.toggle("main-nav__unlogged--active");
+    } else if (type === "other") {
+      item.classList.remove("main-nav__unlogged--active");
+    }
   };
 
   // componentDidMount() {
@@ -112,7 +116,7 @@ class Nav extends Component {
               <div
                 className="main-nav__item-link main-nav__item-user"
                 onClick={() => {
-                  this.userMenuCollapse();
+                  this.userMenuCollapse("main");
                 }}
               >
                 <i className="fas fa-users"></i>
