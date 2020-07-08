@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SelectOptions from "../components/creatingPage/SelectOptions";
 import AddElements from "../components/creatingPage/AddElements";
+import { connect } from "react-redux";
 
 class CreatingPage extends Component {
   constructor(props) {
@@ -48,6 +49,9 @@ class CreatingPage extends Component {
     });
     fetch(`http://localhost:9000/creatingPages/sendPageValues/${vol}/${rev}`, {
       method: "POST",
+      headers: {
+        Authorization: `bearer ${this.props.token}`,
+      },
     })
       .then((e) => e.json())
       .then((number) => {
@@ -58,6 +62,9 @@ class CreatingPage extends Component {
   async getSelectOptions() {
     await fetch("http://localhost:9000/creatingPages/namesRequest", {
       method: "GET",
+      headers: {
+        Authorization: `bearer ${this.props.token}`,
+      },
     })
       .then((e) => e.json())
       .then((data) => {
@@ -90,6 +97,11 @@ class CreatingPage extends Component {
       <AddElements key={index} number={index}></AddElements>
     ));
     return elements;
+  };
+
+  TESTshowToken = (e) => {
+    e.preventDefault();
+    console.log(this.props.token);
   };
 
   render() {
@@ -147,10 +159,21 @@ class CreatingPage extends Component {
               Download!
             </button>
           </form>
+          <button
+            onClick={(e) => {
+              this.TESTshowToken(e);
+            }}
+          >
+            ShowToken
+          </button>
         </div>
       </>
     );
   }
 }
 
-export default CreatingPage;
+const MSTP = (state) => {
+  return { token: state.token.token };
+};
+
+export default connect(MSTP, null)(CreatingPage);

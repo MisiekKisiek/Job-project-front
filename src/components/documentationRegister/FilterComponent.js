@@ -55,7 +55,7 @@ class FilterComponent extends Component {
           </label>
         </div>
         <button
-          className="documentation-register__filter-clear-button btn btn-info"
+          className="documentation-register__filter-clear-button btn btn-primary"
           type="button"
           onClick={(e) => {
             this.props.inputHandler(e);

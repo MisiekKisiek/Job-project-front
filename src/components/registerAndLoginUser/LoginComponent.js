@@ -1,17 +1,113 @@
 import React from "react";
 import { connect } from "react-redux";
-import { register } from "../../actions/registerAndLogin";
+import { login, token } from "../../actions/registerAndLogin";
 
-const LoginComponent = () => {
-  return <>{JSON.stringify()}</>;
+const LoginComponent = ({
+  data,
+  dataToken,
+  login,
+  token,
+  handleLabelStyle,
+}) => {
+  const handleInputs = (e) => {
+    const nextData = { ...data };
+    if (e.target.name === "email") {
+      nextData.email = e.target.value;
+    } else if (e.target.name === "password") {
+      nextData.password = e.target.value;
+    } else if (e.target.name === "submit") {
+      nextData.email = "";
+      nextData.password = "";
+    }
+    login(nextData.email, nextData.password);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:9000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify(data),
+    })
+      .then((e) => e.json())
+      .then((res) => {
+        token(res.token);
+      })
+      .then((e) => {
+        console.log(dataToken);
+      });
+    handleInputs(e);
+  };
+
+  const TESTshowToken = (e) => {
+    e.preventDefault();
+    console.log(dataToken);
+  };
+
+  return (
+    <>
+      <div className="register-login__login-wrap register-login__wrapp">
+        <h1 className="register-login__login-title register-login__title">
+          Log in!
+        </h1>
+        <form className="register-login__login-form register-login__form">
+          <div className="register-login__login-email">
+            <input
+              type="text"
+              name="email"
+              value={data.email}
+              onChange={(e) => {
+                handleLabelStyle(e);
+                handleInputs(e);
+              }}
+            />
+            <label htmlFor="email">E-mail </label>
+          </div>
+          <div className="register-login__register-password">
+            <input
+              type="password"
+              name="password"
+              value={data.password}
+              onChange={(e) => {
+                handleLabelStyle(e);
+                handleInputs(e);
+              }}
+            />
+            <label htmlFor="password">Password </label>
+          </div>
+          <button
+            type="submit"
+            className=" btn btn-primary"
+            name="submit"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            Log in!
+          </button>
+          <button
+            onClick={(e) => {
+              TESTshowToken(e);
+            }}
+          >
+            Show Token
+          </button>
+        </form>
+      </div>
+    </>
+  );
 };
 
 const MSTP = (state) => {
   return {
-    data: state.register,
+    data: state.login,
+    dataToken: state.token,
   };
 };
 
-const MDTP = { register };
+const MDTP = { login, token };
 
 export default connect(MSTP, MDTP)(LoginComponent);

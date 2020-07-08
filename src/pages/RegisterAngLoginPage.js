@@ -5,15 +5,27 @@ import LoginComponent from "../components/registerAndLoginUser/LoginComponent";
 
 class RegisterAndLoginPage extends Component {
   state = {};
+  handleLabelStyle = (e) => {
+    const label = e.target.parentNode.childNodes[1];
+    if (e.target.value !== "") {
+      label.classList.add("active");
+    } else {
+      label.classList.remove("active");
+    }
+  };
   render() {
     return (
       <>
         <div className="register-login__wrap">
           <Route path="/LogIn">
-            <LoginComponent></LoginComponent>
+            <LoginComponent
+              handleLabelStyle={this.handleLabelStyle}
+            ></LoginComponent>
           </Route>
           <Route path="/Register">
-            <RegisterCompoennt></RegisterCompoennt>
+            <RegisterCompoennt
+              handleLabelStyle={this.handleLabelStyle}
+            ></RegisterCompoennt>
           </Route>
         </div>
       </>

@@ -4,7 +4,9 @@
 .navigation {
   z-index: 999;
   position: fixed;
-  width: 100%;
+  top:0;
+  left:0;
+  width: 100vw;
   height: $kapka;
   margin-top: 0;
   .main-nav {
@@ -68,14 +70,14 @@
             background-color: white;
             .main-nav__item-user-list {
               .main-nav__item-user-item {
-                padding: 0px 40px;
+                padding: 0px 15px;
                 list-style-type: none;
                 a:first-child {
                   border-bottom: 1px solid black;
                 }
                 a {
                   display: block;
-                  padding: 7px 10px;
+                  padding: 7px 27px;
                   color: #000;
                 }
               }

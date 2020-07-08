@@ -17,10 +17,10 @@ class App extends Component {
       <>
         <BrowserRouter>
           <div className="wrap">
-            <div className="navigation">
+            <nav className="navigation">
               <Nav></Nav>
-            </div>
-            <div className="main">
+            </nav>
+            <main className="main">
               <Route path="/Creating-page">
                 <CreatingPage></CreatingPage>
               </Route>
@@ -33,7 +33,7 @@ class App extends Component {
               <Route path="/Register">
                 <RegisterAndLoginPage></RegisterAndLoginPage>
               </Route>
-            </div>
+            </main>
           </div>
         </BrowserRouter>
       </>
