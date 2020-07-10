@@ -51,7 +51,7 @@ const LoginComponent = ({
     <>
       <div className="register-login__login-wrap register-login__wrapp">
         <h1 className="register-login__login-title register-login__title">
-          Log in!
+          Log in!a
         </h1>
         <form className="register-login__login-form register-login__form">
           <div className="register-login__login-email">
