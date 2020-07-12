@@ -1,11 +1,36 @@
 @import "./Mixins";
 
 .creating-page {
-  margin-top: 30px;
-  .creating-page__form {
-    @include flex-mother(column, center, center);
-    .creating-page__select{
-      max-width: 300px;
+  @include flex-mother(
+    $flex-direction: column,
+    $align-items: center,
+    $justify-content: center
+  );
+  .creating-page__wrap {
+    @include flex-mother(
+      $flex-direction: column,
+      $align-items: center,
+      $justify-content: center
+    );
+    width: 50%;
+    max-width: 1200px;
+    margin-top: 70px;
+    .creating-page__title {
+      margin-bottom: 50px;
+      text-align: center;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      font-size: 32px;
+      font-weight: bold;
+      color: rgb(21, 52, 145);
+    }
+    .creating-page__form {
+      @include flex-mother(column, center, center);
+      @include input-mother-styles(250px, 20px 0);
+      .creating-page__select {
+        max-width: 300px;
+      }
+      .creating-page__revision-input {
+      }
     }
   }
 }

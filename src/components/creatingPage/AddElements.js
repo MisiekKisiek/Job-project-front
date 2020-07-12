@@ -3,7 +3,7 @@ import React from "react";
 const AddElement = ({ number }) => {
   return (
     <>
-      <form action="" className="creating-page__form-element">
+      <div className="creating-page__form-element">
         <select
           name=""
           id=""
@@ -26,7 +26,7 @@ const AddElement = ({ number }) => {
           Enter drawing scale (If element have a scale):
           <input type="text" disabled />
         </label>
-      </form>
+      </div>
     </>
   );
 };

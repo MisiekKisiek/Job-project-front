@@ -54,13 +54,14 @@ class CreatingPage extends Component {
       },
     })
       .then((e) => e.json())
-      .then((number) => {
-        window.open(`http://localhost:9000/creatingPages/downloadPage`);
+      .then((e) => {
+        console.log("sdasdas");
+        window.open(`http://localhost:9000/downloadPage`);
       });
   };
 
   async getSelectOptions() {
-    await fetch("http://localhost:9000/creatingPages/namesRequest", {
+    fetch("http://localhost:9000/creatingPages/namesRequest", {
       method: "GET",
       headers: {
         Authorization: `bearer ${this.props.token}`,
@@ -76,7 +77,12 @@ class CreatingPage extends Component {
 
   componentDidMount() {
     this.getSelectOptions();
-    // this.forceUpdate()
+    localStorage.setItem("dupa", "cycki");
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem("dupa", "cycki");
+    localStorage.setItem("fsdf", "fsd");
   }
 
   handleAddElementButton = (e) => {
@@ -99,46 +105,47 @@ class CreatingPage extends Component {
     return elements;
   };
 
-  TESTshowToken = (e) => {
-    e.preventDefault();
-    console.log(this.props.token);
-  };
-
   render() {
     return (
       <>
         <div className="creating-page">
-          <form className="creating-page__form">
-            <label htmlFor="creating-page__select">
-              Choose documentation:
-              <select
-                name="packageName"
-                className="creating-page__select"
-                value={this.state.choosenPackage}
-                onChange={(e) => {
-                  this.handlePageForm(e);
-                }}
-              >
-                {this.createOptions(this.state.optionElements)}
-              </select>
-            </label>
-            <label
-              htmlFor="creating-page__revision"
-              className="creating-page__revision_label"
-            >
-              Set revision:
-              <input
-                type="text"
-                name="revision"
-                className="creating-page__revision"
-                value={this.state.choosenRevision}
-                onChange={(e) => {
-                  this.handlePageForm(e);
-                }}
-              />
-            </label>
-            {this.renderAddedElements()}
-            <button
+          <div className="creating-page__wrap">
+            <h1 className="creating-page__title">
+              Create title page for your documentation
+            </h1>
+            <form className="creating-page__form">
+              <div className="creating-page__select-label">
+                <select
+                  name="packageName"
+                  className="creating-page__select"
+                  value={this.state.choosenPackage}
+                  onChange={(e) => {
+                    this.handlePageForm(e);
+                  }}
+                >
+                  {this.createOptions(this.state.optionElements)}
+                </select>
+                <label htmlFor="packageName">Choose documentation:</label>
+              </div>
+              <div className="creating-page__revision-input">
+                <label
+                  htmlFor="revision"
+                  className="creating-page__revision_label"
+                >
+                  Set revision:
+                </label>
+                <input
+                  type="text"
+                  name="revision"
+                  className="creating-page__revision"
+                  value={this.state.choosenRevision}
+                  onChange={(e) => {
+                    this.handlePageForm(e);
+                  }}
+                />
+              </div>
+              {/* {this.renderAddedElements()} */}
+              {/* <button
               type="button"
               className="btn btn-primary my-2 disabled"
               onClick={(e) => {
@@ -146,26 +153,20 @@ class CreatingPage extends Component {
               }}
             >
               Add element!
-            </button>
-            <button
-              href="a"
-              target="_blank"
-              type="submit"
-              className="btn btn-primary"
-              onClick={(e) => {
-                this.submitPageForm(e);
-              }}
-            >
-              Download!
-            </button>
-          </form>
-          <button
-            onClick={(e) => {
-              this.TESTshowToken(e);
-            }}
-          >
-            ShowToken
-          </button>
+            </button> */}
+              <button
+                href="a"
+                target="_blank"
+                type="submit"
+                className="btn btn-primary"
+                onClick={(e) => {
+                  this.submitPageForm(e);
+                }}
+              >
+                Download!
+              </button>
+            </form>
+          </div>
         </div>
       </>
     );

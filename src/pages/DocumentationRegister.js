@@ -14,9 +14,7 @@ class DocumentationRegister extends Component {
   }
 
   async getDocumentationData() {
-    await fetch(
-      "http://localhost:9000/documentationRegister/getAllDocumentation"
-    )
+    fetch("http://localhost:9000/documentationRegister/getAllDocumentation")
       .then((e) => e.json())
       .then((data) => {
         this.setState({

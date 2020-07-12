@@ -24,7 +24,7 @@ class TransmittalElement extends Component {
             <div className="documentation-register__transmittal-element documentation-register__transmittal-number">
               {this.props.number}
             </div>
-            <div className="documentation-register__transmittal-element documentation-register__transmittal-ele-date">
+            {/* <div className="documentation-register__transmittal-element documentation-register__transmittal-ele-date">
               {typeof this.props.eleDate === "string"
                 ? `${this.props.eleDate.split("T")[0]}`
                 : this.props.eleDate}
@@ -39,7 +39,7 @@ class TransmittalElement extends Component {
             </div>
             <div className="documentation-register__transmittal-element documentation-register__transmittal-status">
               {this.props.status}
-            </div>
+            </div> */}
             <Route
               path={
                 this.props.number === ""

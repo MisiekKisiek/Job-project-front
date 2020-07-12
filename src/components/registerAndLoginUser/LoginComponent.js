@@ -32,19 +32,19 @@ const LoginComponent = ({
       mode: "cors",
       body: JSON.stringify(data),
     })
-      .then((e) => e.json())
-      .then((res) => {
-        token(res.token);
+      .then((e) => {
+        const status = e.status;
+        if (status === 401) {
+          alert("Błędny login lub hasło.");
+        } else {
+          alert("Zostałeś zalogowany!");
+          return e.json();
+        }
       })
       .then((e) => {
-        console.log(dataToken);
+        token(e.token);
       });
     handleInputs(e);
-  };
-
-  const TESTshowToken = (e) => {
-    e.preventDefault();
-    console.log(dataToken);
   };
 
   return (
@@ -87,13 +87,6 @@ const LoginComponent = ({
             }}
           >
             Log in!
-          </button>
-          <button
-            onClick={(e) => {
-              TESTshowToken(e);
-            }}
-          >
-            Show Token
           </button>
         </form>
       </div>

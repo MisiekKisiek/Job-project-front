@@ -6,6 +6,8 @@ class DocumentationRow extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    // this.docNameAndCode = this.docNameAndCode.bind(this);
+    // this.makeTransmittals = this.makeTransmittals.bind(this);
   }
 
   docNameAndCode = (row, actionType) => {

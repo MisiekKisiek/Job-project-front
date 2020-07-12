@@ -8,9 +8,6 @@
     width: 50%;
     max-width: 1200px;
     margin-top: 70px;
-    box-sizing: border-box;
-    height: 30px;
-    max-height: 30px;
     .register-login__title {
       margin-bottom: 30px;
       text-align: center;
@@ -21,43 +18,10 @@
     }
     .register-login__form {
       @include flex-mother($flex-direction: column, $align-items: center);
+      @include input-mother-styles(250px, 20px 0);
       * {
-        margin: 8px 0;
-        position: relative;
-        box-sizing: border-box;
-        input {
-          z-index: 2;
-          width: 250px;
-          border: none;
-          border-bottom: 1px solid black;
-          background-color: transparent;
-          line-height: 20px;
-        }
-        input:focus {
-          border-bottom: 1px solid royalblue;
-          box-shadow: none;
-          outline: none;
-        }
-        label {
-          position: absolute;
-          top: 0;
-          left: 0;
-          transition: 0.2s;
-          font-size: 14px;
-          font-family: Arial, Helvetica, sans-serif;
-          color: #888;
-        }
-        label.active {
-          top: -50%;
-          font-size: 12px;
-          color: rgb(21, 52, 145);
-        }
-        input:focus + label {
-          top: -50%;
-          font-size: 12px;
-          color: rgb(21, 52, 145);
-        }
       }
+
       .register-login__register-first-name {
       }
       .register-login__register-last-name {
@@ -78,9 +42,6 @@
       width: 80%;
       max-width: 1200px;
       margin-top: 70px;
-      box-sizing: border-box;
-      height: 30px;
-      max-height: 30px;
       .register-login__title {
         margin-bottom: 30px;
         text-align: center;
@@ -92,37 +53,16 @@
       .register-login__form {
         @include flex-mother($flex-direction: column, $align-items: center);
         * {
-          margin: 8px 0;
-          position: relative;
-          box-sizing: border-box;
           input {
-            z-index: 2;
             width: 200px;
-            border: none;
-            border-bottom: 1px solid black;
-            background-color: transparent;
-            line-height: 20px;
           }
           input:focus {
-            border-bottom: 1px solid royalblue;
           }
           label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: 0.2s;
-            font-size: 14px;
-            font-family: Arial, Helvetica, sans-serif;
           }
           label.active {
-            top: -50%;
-            font-size: 12px;
-            color: rgb(21, 52, 145);
           }
           input:focus + label {
-            top: -50%;
-            font-size: 12px;
-            color: rgb(21, 52, 145);
           }
         }
         .register-login__register-first-name {
