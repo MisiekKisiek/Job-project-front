@@ -96,7 +96,7 @@ class CreatingPage extends Component {
     }));
   };
 
-  handleChangeElementTypes = () => {};
+  handleChangeElementTypes = () => { };
 
   renderAddedElements = () => {
     const elements = this.state.addedElements.map((e, index) => (
