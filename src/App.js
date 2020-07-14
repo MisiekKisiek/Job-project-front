@@ -5,40 +5,37 @@ import {
   // BrowserRouter as Router,
   BrowserRouter,
   Redirect,
-  Switch
+  Switch,
 } from "react-router-dom";
 
-import MainPage from './pages/MainPage'
+import MainPage from "./pages/MainPage";
 import CreatingPage from "./pages/CreatingPage";
 import DocumentationRegister from "./pages/DocumentationRegister";
 import RegisterAndLoginPage from "./pages/RegisterAngLoginPage";
+import OtherComponent from "./pages/OtherComponent";
 
-import { connect } from 'react-redux'
-import { logout } from './actions/registerAndLogin'
+import { connect } from "react-redux";
+import { logout } from "./actions/registerAndLogin";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-
-    }
+      test: 0,
+    };
   }
 
-  async checkIsLogged() {
-    console.log(this.props.loginStatus)
-    await fetch('http://localhost:9000/checkIsLogged').then(e => {
+  async checkIsLogged(token, logout) {
+    await fetch("http://localhost:9000/checkIsLogged", {
+      headers: { Authorization: `bearer ${token}` },
+    }).then((e) => {
       if (e.status === 401 || e.status === 404) {
-        this.props.logout()
+        logout();
+        alert("Zostałeś wylogowany!");
       }
-    })
+    });
   }
 
-  componentDidMount() {
-    this.checkIsLogged()
-  }
-  componentDidUpdate() {
-    this.checkIsLogged()
-  }
   render() {
     return (
       <>
@@ -49,13 +46,40 @@ class App extends Component {
             </nav>
             <main className="main">
               <Switch>
+                <Route exact path="/">
+                  {this.props.loginStatus === "unlogged"
+                    ? "Niezalogowany"
+                    : "Zalogowany"}
+                </Route>
                 <Route path="/Creating-page">
-                  {this.props.loginStatus === "unlogged" ? <Redirect to={"/"} /> : <CreatingPage />}
+                  {this.props.loginStatus === "unlogged" ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <CreatingPage
+                      checkIsLogged={this.checkIsLogged}
+                      token={this.props.token}
+                    ></CreatingPage>
+                  )}
                 </Route>
                 {}
-                <Route path="/Documentation-Register" component={DocumentationRegister}></Route>
+                <Route path="/Documentation-Register">
+                  {this.props.loginStatus === "unlogged" ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <DocumentationRegister
+                      checkIsLogged={this.checkIsLogged}
+                      token={this.props.token}
+                    ></DocumentationRegister>
+                  )}
+                </Route>
                 <Route path="/LogIn" component={RegisterAndLoginPage}></Route>
-                <Route path="/Register" component={RegisterAndLoginPage}></Route>
+                <Route
+                  path="/Register"
+                  component={RegisterAndLoginPage}
+                ></Route>
+                <Route path="/Other">
+                  <OtherComponent></OtherComponent>
+                </Route>
                 <Redirect to="/"></Redirect>
               </Switch>
             </main>
@@ -67,9 +91,9 @@ class App extends Component {
 }
 
 const MSTP = (state) => {
-  return ({ loginStatus: state.token.loginStatus })
-}
+  return { loginStatus: state.token.loginStatus, token: state.token.token };
+};
 
-const MDTP = { logout }
+const MDTP = { logout };
 
 export default connect(MSTP, MDTP)(App);

@@ -5,19 +5,16 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 //REDUX imports
-import { connect } from 'react-redux'
-import { logout } from '../../actions/registerAndLogin'
+import { connect } from "react-redux";
+import { logout } from "../../actions/registerAndLogin";
 
 //OTHER imports
-import { PermissibleRender } from '@brainhubeu/react-permissible';
-
+import { PermissibleRender } from "@brainhubeu/react-permissible";
 
 class Nav extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-
-    }
+    super(props);
+    this.state = {};
   }
 
   navCollapse = (action) => {
@@ -79,19 +76,24 @@ class Nav extends Component {
                 />
               </a>
             </li>
-            <li className="main-nav__item">
-              <NavLink
-                exact
-                to="/"
-                activeClassName="selected"
-                className="main-nav__item-link"
-                onClick={() => {
-                  this.navCollapse("normal");
-                }}
-              >
-                Main Page
-              </NavLink>
-            </li>
+            <PermissibleRender
+              userPermissions={[this.props.loginStatus]}
+              requiredPermissions={["logged"]}
+            >
+              <li className="main-nav__item">
+                <NavLink
+                  exact
+                  to="/"
+                  activeClassName="selected"
+                  className="main-nav__item-link"
+                  onClick={() => {
+                    this.navCollapse("normal");
+                  }}
+                >
+                  Main Page
+                </NavLink>
+              </li>
+            </PermissibleRender>
             <PermissibleRender
               userPermissions={[this.props.loginStatus]}
               requiredPermissions={["logged"]}
@@ -106,33 +108,43 @@ class Nav extends Component {
                   }}
                 >
                   Tools
-              </NavLink>
+                </NavLink>
               </li>
             </PermissibleRender>
-            <li className="main-nav__item">
-              <NavLink
-                to="/Documentation-Register"
-                activeClassName="selected"
-                className="main-nav__item-link"
-                onClick={() => {
-                  this.navCollapse("normal");
-                }}
-              >
-                Register
-              </NavLink>
-            </li>
-            <li className="main-nav__item">
-              <NavLink
-                to="/Other"
-                activeClassName="selected"
-                className="main-nav__item-link"
-                onClick={() => {
-                  this.navCollapse("normal");
-                }}
-              >
-                Other
-              </NavLink>
-            </li>
+            <PermissibleRender
+              userPermissions={[this.props.loginStatus]}
+              requiredPermissions={["logged"]}
+            >
+              <li className="main-nav__item">
+                <NavLink
+                  to="/Documentation-Register"
+                  activeClassName="selected"
+                  className="main-nav__item-link"
+                  onClick={() => {
+                    this.navCollapse("normal");
+                  }}
+                >
+                  Register
+                </NavLink>
+              </li>
+            </PermissibleRender>
+            <PermissibleRender
+              userPermissions={[this.props.loginStatus]}
+              requiredPermissions={["logged"]}
+            >
+              <li className="main-nav__item">
+                <NavLink
+                  to="/Other"
+                  activeClassName="selected"
+                  className="main-nav__item-link"
+                  onClick={() => {
+                    this.navCollapse("normal");
+                  }}
+                >
+                  Other
+                </NavLink>
+              </li>
+            </PermissibleRender>
             <li className="main-nav__item">
               <div
                 className="main-nav__item-link main-nav__item-user"
@@ -185,11 +197,11 @@ class Nav extends Component {
 }
 
 const MSTP = (state) => {
-  return ({
-    loginStatus: state.token.loginStatus
-  })
-}
+  return {
+    loginStatus: state.token.loginStatus,
+  };
+};
 
-const MDTP = {}
+const MDTP = {};
 
 export default connect(MSTP, MDTP)(Nav);

@@ -2,12 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { login, token, logout } from "../../actions/registerAndLogin";
 
-const LoginComponent = ({
-  data,
-  login,
-  token,
-  handleLabelStyle,
-}) => {
+const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
   const handleInputs = (e) => {
     const nextData = { ...data };
     if (e.target.name === "email") {
@@ -43,7 +38,10 @@ const LoginComponent = ({
       })
       .then((e) => {
         token(e.token);
-      }).catch(err => { console.log('Błąd:', err) });
+      })
+      .catch((err) => {
+        console.log("Błąd:", err);
+      });
     handleInputs(e);
   };
 

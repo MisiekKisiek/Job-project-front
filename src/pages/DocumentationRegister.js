@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import FiletrComponent from "../components/documentationRegister/FilterComponent";
 import DocumentationWrap from "../components/documentationRegister/DocumentationWrap";
+import { connect } from "react-redux";
+import { logout } from "../actions/registerAndLogin";
 
 class DocumentationRegister extends Component {
   constructor(props) {
@@ -23,18 +25,6 @@ class DocumentationRegister extends Component {
       });
   }
 
-  componentDidMount() {
-    this.getDocumentationData();
-  }
-
-  // componentWillUnmount() {
-  //   this.setState({
-  //     documentationAll: [],
-  //     filterName: "",
-  //     filterDate: "",
-  //   });
-  // }
-
   async handleInputsFilter(e) {
     e.preventDefault();
     if (e.target.type === "text") {
@@ -52,6 +42,19 @@ class DocumentationRegister extends Component {
       });
     }
   }
+
+  componentDidMount() {
+    this.getDocumentationData();
+    this.props.checkIsLogged(this.props.token, this.props.logout);
+  }
+
+  // componentWillUnmount() {
+  //   this.setState({
+  //     documentationAll: [],
+  //     filterName: "",
+  //     filterDate: "",
+  //   });
+  // }
 
   render() {
     return (
@@ -73,4 +76,10 @@ class DocumentationRegister extends Component {
   }
 }
 
-export default DocumentationRegister;
+const MSTP = (state) => {
+  return { token: state.token.token };
+};
+
+const MDTP = { logout };
+
+export default connect(MSTP, MDTP)(DocumentationRegister);

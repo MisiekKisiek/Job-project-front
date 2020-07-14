@@ -1,9 +1,12 @@
-export const token = (state = { token: "aaa", loginStatus: "logged" }, action) => {
+export const token = (
+  state = { token: "aaa", loginStatus: "unlogged" },
+  action
+) => {
   switch (action.type) {
     case "TOKEN":
-      return { token: action.token, loginStatus: 'logged' };
+      return { token: action.token, loginStatus: "logged" };
     case "LOG_OUT":
-      return { token: state.token, loginStatus: 'unlogged' }
+      return { token: state.token, loginStatus: "unlogged" };
     // case "LOG_IN":
     //   return { token: state.token, loginStatus: 'logged' }
     default:
