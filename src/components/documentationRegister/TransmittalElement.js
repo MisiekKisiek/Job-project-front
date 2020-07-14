@@ -3,7 +3,6 @@ import {
   NavLink,
   Route,
   BrowserRouter as Router,
-  BrowserRouter,
 } from "react-router-dom";
 import TransmittalPopup from "./TransmittalPopup";
 
@@ -33,13 +32,13 @@ class TransmittalElement extends Component {
               {typeof this.props.paperDate === "string"
                 ? `${this.props.paperDate.split("T")[0]}`
                 : this.props.paperDate}
-            </div>
+            </div> */}
             <div className="documentation-register__transmittal-element documentation-register__transmittal-revision">
               {this.props.revision}
             </div>
             <div className="documentation-register__transmittal-element documentation-register__transmittal-status">
               {this.props.status}
-            </div> */}
+            </div>
             <Route
               path={
                 this.props.number === ""

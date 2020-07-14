@@ -27,13 +27,13 @@ class DocumentationRegister extends Component {
     this.getDocumentationData();
   }
 
-  componentWillUnmount() {
-    this.setState({
-      documentationAll: [],
-      filterName: "",
-      filterDate: "",
-    });
-  }
+  // componentWillUnmount() {
+  //   this.setState({
+  //     documentationAll: [],
+  //     filterName: "",
+  //     filterDate: "",
+  //   });
+  // }
 
   async handleInputsFilter(e) {
     e.preventDefault();

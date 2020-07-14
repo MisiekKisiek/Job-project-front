@@ -1,9 +1,7 @@
 import React from "react";
 import {
   NavLink,
-  Route,
   BrowserRouter as Router,
-  BrowserRouter,
 } from "react-router-dom";
 
 const TransmittalPopup = (props) => {
@@ -30,19 +28,19 @@ const TransmittalPopup = (props) => {
             </h1>
             <div className="documentation-register__transmittal-popup-eledate">{`Electronic submit date: ${
               eleDate === "" ? "none" : eleDate.split("T")[0]
-            }`}</div>
+              }`}</div>
             <div className="documentation-register__transmittal-popup-paperdate">{`Paper submit date: ${
               paperDate === "-" || paperDate === ""
                 ? "none"
                 : paperDate.split("T")[0]
-            }`}</div>
+              }`}</div>
             <div className="documentation-register__transmittal-popup-revision">
               {`Revision: ${revision}`}
             </div>
             <div className="documentation-register__transmittal-popup-status">
               {`Acceptation status: ${
                 status === null || status === "" ? "none" : status
-              }`}
+                }`}
             </div>
           </div>
           <div className="documentation-register__transmittal-popup-chat">

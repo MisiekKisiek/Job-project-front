@@ -1,7 +1,13 @@
+//REACT imports
 import React, { Component } from "react";
+
+//COMPONENTS imports
 import SelectOptions from "../components/creatingPage/SelectOptions";
 import AddElements from "../components/creatingPage/AddElements";
+
+//REDUX imports
 import { connect } from "react-redux";
+import { logout } from '../actions/registerAndLogin'
 
 class CreatingPage extends Component {
   constructor(props) {
@@ -13,7 +19,18 @@ class CreatingPage extends Component {
       addedElements: [{ elementType: "", elementName: "", elementScale: "" }],
     };
     this.getSelectOptions = this.getSelectOptions.bind(this);
+    this.labelFirst = React.createRef();
+    this.inputFirst = React.createRef();
   }
+
+  handleLabelStyle = () => {
+    console.log(this.inputFirst.current);
+    if (this.inputFirst.current.value !== "") {
+      this.labelFirst.current.classList.add("active");
+    } else {
+      this.labelFirst.current.classList.remove("active");
+    }
+  };
 
   createOptions = (tab) => {
     const elements = tab.map((e, index) => (
@@ -53,11 +70,17 @@ class CreatingPage extends Component {
         Authorization: `bearer ${this.props.token}`,
       },
     })
-      .then((e) => e.json())
       .then((e) => {
-        console.log("sdasdas");
+        if (e.status === 401) {
+          logout();
+          alert('Nie jesteś zalogowany')
+        } else {
+          return e.json()
+        }
+      })
+      .then((e) => {
         window.open(`http://localhost:9000/downloadPage`);
-      });
+      }).catch(err => console.log('Bląd', err));
   };
 
   async getSelectOptions() {
@@ -96,8 +119,6 @@ class CreatingPage extends Component {
     }));
   };
 
-  handleChangeElementTypes = () => { };
-
   renderAddedElements = () => {
     const elements = this.state.addedElements.map((e, index) => (
       <AddElements key={index} number={index}></AddElements>
@@ -127,22 +148,25 @@ class CreatingPage extends Component {
                 </select>
                 <label htmlFor="packageName">Choose documentation:</label>
               </div>
-              <div className="creating-page__revision-input">
-                <label
-                  htmlFor="revision"
-                  className="creating-page__revision_label"
-                >
-                  Set revision:
-                </label>
+              <div className="creating-page__revision">
                 <input
                   type="text"
                   name="revision"
-                  className="creating-page__revision"
+                  className="creating-page__revision-input"
+                  ref={this.inputFirst}
                   value={this.state.choosenRevision}
                   onChange={(e) => {
                     this.handlePageForm(e);
+                    this.handleLabelStyle()
                   }}
                 />
+                <label
+                  htmlFor="revision"
+                  className="creating-page__revision_label"
+                  ref={this.labelFirst}
+                >
+                  Set revision:
+                </label>
               </div>
               {/* {this.renderAddedElements()} */}
               {/* <button
@@ -159,8 +183,9 @@ class CreatingPage extends Component {
                 target="_blank"
                 type="submit"
                 className="btn btn-primary"
-                onClick={(e) => {
-                  this.submitPageForm(e);
+                onClick={async (e) => {
+                  await this.submitPageForm(e);
+                  this.handleLabelStyle()
                 }}
               >
                 Download!
@@ -174,7 +199,11 @@ class CreatingPage extends Component {
 }
 
 const MSTP = (state) => {
-  return { token: state.token.token };
+  return { token: state.token.token, loginStatus: state.token.loginStatus };
 };
 
-export default connect(MSTP, null)(CreatingPage);
+const MDTP = {
+  logout
+}
+
+export default connect(MSTP, MDTP)(CreatingPage);

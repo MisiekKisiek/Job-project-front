@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { login, token } from "../../actions/registerAndLogin";
+import { login, token, logout } from "../../actions/registerAndLogin";
 
 const LoginComponent = ({
   data,
-  dataToken,
   login,
   token,
   handleLabelStyle,
@@ -35,6 +34,7 @@ const LoginComponent = ({
       .then((e) => {
         const status = e.status;
         if (status === 401) {
+          logout();
           alert("Błędny login lub hasło.");
         } else {
           alert("Zostałeś zalogowany!");
@@ -43,7 +43,7 @@ const LoginComponent = ({
       })
       .then((e) => {
         token(e.token);
-      });
+      }).catch(err => { console.log('Błąd:', err) });
     handleInputs(e);
   };
 
@@ -51,7 +51,7 @@ const LoginComponent = ({
     <>
       <div className="register-login__login-wrap register-login__wrapp">
         <h1 className="register-login__login-title register-login__title">
-          Log in!a
+          Log in!
         </h1>
         <form className="register-login__login-form register-login__form">
           <div className="register-login__login-email">
@@ -97,10 +97,9 @@ const LoginComponent = ({
 const MSTP = (state) => {
   return {
     data: state.login,
-    dataToken: state.token,
   };
 };
 
-const MDTP = { login, token };
+const MDTP = { login, token, logout };
 
 export default connect(MSTP, MDTP)(LoginComponent);

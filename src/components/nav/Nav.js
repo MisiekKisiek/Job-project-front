@@ -1,8 +1,24 @@
+//REACT imports
 import React, { Component } from "react";
+
+//REACT-ROUTER imports
 import { NavLink } from "react-router-dom";
 
+//REDUX imports
+import { connect } from 'react-redux'
+import { logout } from '../../actions/registerAndLogin'
+
+//OTHER imports
+import { PermissibleRender } from '@brainhubeu/react-permissible';
+
+
 class Nav extends Component {
-  state = {};
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+  }
 
   navCollapse = (action) => {
     const items = document.querySelectorAll(
@@ -76,18 +92,23 @@ class Nav extends Component {
                 Main Page
               </NavLink>
             </li>
-            <li className="main-nav__item">
-              <NavLink
-                to="/Creating-page"
-                activeClassName="selected"
-                className="main-nav__item-link main__nav_tools"
-                onClick={() => {
-                  this.navCollapse("normal");
-                }}
-              >
-                Tools
+            <PermissibleRender
+              userPermissions={[this.props.loginStatus]}
+              requiredPermissions={["logged"]}
+            >
+              <li className="main-nav__item">
+                <NavLink
+                  to="/Creating-page"
+                  activeClassName="selected"
+                  className="main-nav__item-link main__nav_tools"
+                  onClick={() => {
+                    this.navCollapse("normal");
+                  }}
+                >
+                  Tools
               </NavLink>
-            </li>
+              </li>
+            </PermissibleRender>
             <li className="main-nav__item">
               <NavLink
                 to="/Documentation-Register"
@@ -163,4 +184,12 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+const MSTP = (state) => {
+  return ({
+    loginStatus: state.token.loginStatus
+  })
+}
+
+const MDTP = {}
+
+export default connect(MSTP, MDTP)(Nav);

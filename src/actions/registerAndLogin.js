@@ -16,3 +16,7 @@ export const token = (token) => ({
   type: "TOKEN",
   token,
 });
+
+export const logout = (logout) => ({
+  type: "LOG_OUT"
+})
