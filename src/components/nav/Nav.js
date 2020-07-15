@@ -148,45 +148,60 @@ class Nav extends Component {
             <li className="main-nav__item">
               <div
                 className="main-nav__item-link main-nav__item-user"
-                onClick={() => {
-                  this.userMenuCollapse("main");
-                }}
               >
-                <i className="fas fa-users"></i>
-                <div className="main-nav__logged main-nav__item-user-wrap">
+                {/* <i className="fas fa-users"></i> */}
+                {/* <div className="main-nav__logged main-nav__item-user-wrap">
                   <ul className="main-nav__logged-list main-nav__item-user-list">
-                    {/* <li className="main-nav__unlogged-item main-nav__item-user-item">
+                    <li className="main-nav__unlogged-item main-nav__item-user-item">
                       <NavLink to="/LogIn">Login</NavLink>
                     </li>
                     <li className="main-nav__unlogged-item main-nav__item-user-item">
                       <NavLink to="/Register">Register</NavLink>
-                    </li> */}
-                  </ul>
-                </div>
-                <div className="main-nav__unlogged main-nav__item-user-wrap">
-                  <ul className="main-nav__unlogged-list main-nav__item-user-list">
-                    <li className="main-nav__unlogged-item main-nav__item-user-item">
-                      <NavLink
-                        to="/LogIn"
-                        onClick={() => {
-                          this.navCollapse("normal");
-                        }}
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                    <li className="main-nav__unlogged-item main-nav__item-user-item">
-                      <NavLink
-                        to="/Register"
-                        onClick={() => {
-                          this.navCollapse("normal");
-                        }}
-                      >
-                        Register
-                      </NavLink>
                     </li>
                   </ul>
-                </div>
+                </div> */}
+                <PermissibleRender
+                  userPermissions={[this.props.loginStatus]}
+                  requiredPermissions={["logged"]}>
+                  <div className="main-nav__logged main-nav__item-user-wrap">
+                    <ul className="main-nav__logged main-nav__item-user-list">
+                      <li className="main-nav__logged-item main-nav__item-user-item">
+                        <NavLink to="/" onClick={() => {
+
+                          this.props.logout()
+                        }}>Log out</NavLink>
+                      </li>
+                    </ul>
+                  </div>
+                </PermissibleRender>
+                <PermissibleRender
+                  userPermissions={[this.props.loginStatus]}
+                  requiredPermissions={["unlogged"]}>
+                  <div className="main-nav__unlogged main-nav__item-user-wrap">
+                    <ul className="main-nav__unlogged-list main-nav__item-user-list">
+                      <li className="main-nav__unlogged-item main-nav__item-user-item">
+                        <NavLink
+                          to="/LogIn"
+                          onClick={() => {
+                            this.navCollapse("normal");
+                          }}
+                        >
+                          Log In
+                      </NavLink>
+                      </li>
+                      <li className="main-nav__unlogged-item main-nav__item-user-item">
+                        <NavLink
+                          to="/Register"
+                          onClick={() => {
+                            this.navCollapse("normal");
+                          }}
+                        >
+                          Register
+                      </NavLink>
+                      </li>
+                    </ul>
+                  </div>
+                </PermissibleRender>
               </div>
             </li>
           </ul>
@@ -202,6 +217,6 @@ const MSTP = (state) => {
   };
 };
 
-const MDTP = {};
+const MDTP = { logout };
 
 export default connect(MSTP, MDTP)(Nav);

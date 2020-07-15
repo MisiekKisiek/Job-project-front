@@ -55,24 +55,26 @@ class App extends Component {
                   {this.props.loginStatus === "unlogged" ? (
                     <Redirect to="/" />
                   ) : (
-                    <CreatingPage
-                      checkIsLogged={this.checkIsLogged}
-                      token={this.props.token}
-                    ></CreatingPage>
-                  )}
+                      <CreatingPage
+                        checkIsLogged={this.checkIsLogged}
+                        token={this.props.token}
+                      ></CreatingPage>
+                    )}
                 </Route>
                 {}
                 <Route path="/Documentation-Register">
                   {this.props.loginStatus === "unlogged" ? (
                     <Redirect to="/" />
                   ) : (
-                    <DocumentationRegister
-                      checkIsLogged={this.checkIsLogged}
-                      token={this.props.token}
-                    ></DocumentationRegister>
-                  )}
+                      <DocumentationRegister
+                        checkIsLogged={this.checkIsLogged}
+                        token={this.props.token}
+                      ></DocumentationRegister>
+                    )}
                 </Route>
-                <Route path="/LogIn" component={RegisterAndLoginPage}></Route>
+                <Route path="/LogIn" >
+                  {this.props.loginStatus === "unlogged" ? <RegisterAndLoginPage></RegisterAndLoginPage> : <Redirect to="/"></Redirect>}
+                </Route>
                 <Route
                   path="/Register"
                   component={RegisterAndLoginPage}

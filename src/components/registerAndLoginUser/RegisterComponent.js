@@ -39,9 +39,9 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
     })
       .then((e) => e.json())
       .then((res) => {
-        console.log(res);
+        alert(res)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert("Coś poszło nie tak :/"));
     handleInputs(e);
   };
 
@@ -104,8 +104,9 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
             type="submit"
             className=" btn btn-primary"
             name="submit"
-            onClick={(e) => {
-              handleSubmit(e);
+            onClick={async (e) => {
+              await handleSubmit(e);
+              // handleLabelStyle(e);
             }}
           >
             Register!
