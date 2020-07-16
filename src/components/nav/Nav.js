@@ -149,17 +149,6 @@ class Nav extends Component {
               <div
                 className="main-nav__item-link main-nav__item-user"
               >
-                {/* <i className="fas fa-users"></i> */}
-                {/* <div className="main-nav__logged main-nav__item-user-wrap">
-                  <ul className="main-nav__logged-list main-nav__item-user-list">
-                    <li className="main-nav__unlogged-item main-nav__item-user-item">
-                      <NavLink to="/LogIn">Login</NavLink>
-                    </li>
-                    <li className="main-nav__unlogged-item main-nav__item-user-item">
-                      <NavLink to="/Register">Register</NavLink>
-                    </li>
-                  </ul>
-                </div> */}
                 <PermissibleRender
                   userPermissions={[this.props.loginStatus]}
                   requiredPermissions={["logged"]}>
@@ -167,7 +156,6 @@ class Nav extends Component {
                     <ul className="main-nav__logged main-nav__item-user-list">
                       <li className="main-nav__logged-item main-nav__item-user-item">
                         <NavLink to="/" onClick={() => {
-
                           this.props.logout()
                         }}>Log out</NavLink>
                       </li>

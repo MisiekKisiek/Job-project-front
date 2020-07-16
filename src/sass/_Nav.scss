@@ -69,11 +69,13 @@
             // border-radius: 5px;
             // background-color: white;
             .main-nav__item-user-list {
-              @include flex-mother($justify-content: flex-end);
+              @include flex-mother($justify-content: flex-end, $align-items: flex-end);
               .main-nav__item-user-item {
                 list-style-type: none;
                 &:last-child a{
                   font-weight: 600;
+                  font-size: 18px;
+                  vertical-align: top;
                 }
                 a {
                   display: block;
@@ -145,14 +147,9 @@
             @include flex-mother($flex-direction: column);
             .main-nav__item-user-wrap {
               position: static;
-              // margin-top: 13px;
-              // border: none;
-              // border-top: 1px solid black;
-              // border-bottom: 1px solid black;
-              // border-radius: 0px;
               background-color: transparent;
               .main-nav__item-user-list {
-                @include flex-mother($flex-direction: column);
+                @include flex-mother($flex-direction: column , $align-items: stretch);
                 .main-nav__item-user-item {
                   padding: 5px 0;
                   &:last-child a{

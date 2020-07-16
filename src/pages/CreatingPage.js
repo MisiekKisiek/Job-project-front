@@ -19,18 +19,9 @@ class CreatingPage extends Component {
       addedElements: [{ elementType: "", elementName: "", elementScale: "" }],
     };
     this.getSelectOptions = this.getSelectOptions.bind(this);
-    this.labelFirst = React.createRef();
-    this.inputFirst = React.createRef();
+    this.revisionLabel = React.createRef();
+    this.revisionInput = React.createRef();
   }
-
-  handleLabelStyle = () => {
-    console.log(this.inputFirst.current);
-    if (this.inputFirst.current.value !== "") {
-      this.labelFirst.current.classList.add("active");
-    } else {
-      this.labelFirst.current.classList.remove("active");
-    }
-  };
 
   createOptions = (tab) => {
     const elements = tab.map((e, index) => (
@@ -153,17 +144,17 @@ class CreatingPage extends Component {
                   type="text"
                   name="revision"
                   className="creating-page__revision-input"
-                  ref={this.inputFirst}
+                  ref={this.revisionInput}
                   value={this.state.choosenRevision}
                   onChange={(e) => {
                     this.handlePageForm(e);
-                    this.handleLabelStyle()
+                    this.props.handleLabelStyle([[this.revisionInput, this.revisionLabel]])
                   }}
                 />
                 <label
                   htmlFor="revision"
                   className="creating-page__revision_label"
-                  ref={this.labelFirst}
+                  ref={this.revisionLabel}
                 >
                   Set revision:
                 </label>
@@ -185,7 +176,7 @@ class CreatingPage extends Component {
                 className="btn btn-primary"
                 onClick={async (e) => {
                   await this.submitPageForm(e);
-                  this.handleLabelStyle()
+                  this.props.handleLabelStyle([[this.revisionInput, this.revisionLabel]])
                 }}
               >
                 Download!

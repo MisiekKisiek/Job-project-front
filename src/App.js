@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Nav from "./components/nav/Nav";
+
 import {
   Route,
   // BrowserRouter as Router,
@@ -8,12 +8,16 @@ import {
   Switch,
 } from "react-router-dom";
 
+//PAGES AND COMPONENTS imports
+import Nav from "./components/nav/Nav";
+import NewsComponent from './components/NewsComponent';
 import MainPage from "./pages/MainPage";
 import CreatingPage from "./pages/CreatingPage";
 import DocumentationRegister from "./pages/DocumentationRegister";
 import RegisterAndLoginPage from "./pages/RegisterAngLoginPage";
 import OtherComponent from "./pages/OtherComponent";
 
+//REDUX imports
 import { connect } from "react-redux";
 import { logout } from "./actions/registerAndLogin";
 
@@ -23,6 +27,14 @@ class App extends Component {
     this.state = {
       test: 0,
     };
+  }
+
+  handleLabelStyle = (tab) => {
+    tab.forEach(e => {
+      if (e[0].current.value !== "") {
+        e[1].current.classList.add("active")
+      } else { e[1].current.classList.remove("active") }
+    })
   }
 
   async checkIsLogged(token, logout) {
@@ -45,6 +57,7 @@ class App extends Component {
               <Nav></Nav>
             </nav>
             <main className="main">
+              <NewsComponent></NewsComponent>
               <Switch>
                 <Route exact path="/">
                   {this.props.loginStatus === "unlogged"
@@ -57,7 +70,7 @@ class App extends Component {
                   ) : (
                       <CreatingPage
                         checkIsLogged={this.checkIsLogged}
-                        token={this.props.token}
+                        handleLabelStyle={this.handleLabelStyle}
                       ></CreatingPage>
                     )}
                 </Route>
@@ -73,12 +86,11 @@ class App extends Component {
                     )}
                 </Route>
                 <Route path="/LogIn" >
-                  {this.props.loginStatus === "unlogged" ? <RegisterAndLoginPage></RegisterAndLoginPage> : <Redirect to="/"></Redirect>}
+                  {this.props.loginStatus === "unlogged" ? <RegisterAndLoginPage handleLabelStyle={this.handleLabelStyle}></RegisterAndLoginPage> : <Redirect to="/"></Redirect>}
                 </Route>
                 <Route
                   path="/Register"
-                  component={RegisterAndLoginPage}
-                ></Route>
+                >{this.props.loginStatus === "unlogged" ? <RegisterAndLoginPage handleLabelStyle={this.handleLabelStyle}></RegisterAndLoginPage> : <Redirect to="/"></Redirect>}</Route>
                 <Route path="/Other">
                   <OtherComponent></OtherComponent>
                 </Route>

@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { login, token, logout } from "../../actions/registerAndLogin";
 
 const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
+  const firstLabel = useRef(null);
+  const firstInput = useRef(null);
+  const secondLabel = useRef(null);
+  const secondInput = useRef(null);
+
   const handleInputs = (e) => {
     const nextData = { ...data };
     if (e.target.name === "email") {
@@ -58,11 +63,12 @@ const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
               name="email"
               value={data.email}
               onChange={(e) => {
-                handleLabelStyle(e);
+                handleLabelStyle([[firstInput, firstLabel]]);
                 handleInputs(e);
               }}
+              ref={firstInput}
             />
-            <label htmlFor="email">E-mail </label>
+            <label htmlFor="email" ref={firstLabel}>E-mail </label>
           </div>
           <div className="register-login__register-password">
             <input
@@ -70,11 +76,12 @@ const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
               name="password"
               value={data.password}
               onChange={(e) => {
-                handleLabelStyle(e);
+                handleLabelStyle([[secondInput, secondLabel]]);
                 handleInputs(e);
               }}
+              ref={secondInput}
             />
-            <label htmlFor="password">Password </label>
+            <label htmlFor="password" ref={secondLabel}>Password </label>
           </div>
           <button
             type="submit"
@@ -82,6 +89,7 @@ const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
             name="submit"
             onClick={(e) => {
               handleSubmit(e);
+              handleLabelStyle([[firstInput, firstLabel], [secondInput, secondLabel]]);
             }}
           >
             Log in!

@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { register } from "../../actions/registerAndLogin";
 
 const RegisterComponent = ({ data, register, handleLabelStyle }) => {
+  const firstNameLabel = useRef(null);
+  const firstNameInput = useRef(null);
+  const lastNameLabel = useRef(null);
+  const lastNameInput = useRef(null);
+  const emailLabel = useRef(null);
+  const emailInput = useRef(null);
+  const passwordLabel = useRef(null);
+  const passwordInput = useRef(null);
+
   const handleInputs = (e) => {
     const nextData = { ...data };
     if (e.target.name === "first-name") {
@@ -58,11 +67,12 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
               name="first-name"
               value={data.first_name}
               onChange={(e) => {
-                handleLabelStyle(e);
+                handleLabelStyle([[firstNameInput, firstNameLabel]]);
                 handleInputs(e);
               }}
+              ref={firstNameInput}
             />
-            <label htmlFor="first-name">First name </label>
+            <label htmlFor="first-name" ref={firstNameLabel}>First name </label>
           </div>
           <div className="register-login__register-last-name">
             <input
@@ -70,11 +80,12 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
               name="last-name"
               value={data.last_name}
               onChange={(e) => {
-                handleLabelStyle(e);
+                handleLabelStyle([[lastNameInput, lastNameLabel]]);
                 handleInputs(e);
               }}
+              ref={lastNameInput}
             />
-            <label htmlFor="last-name">Last name </label>
+            <label htmlFor="last-name" ref={lastNameLabel}>Last name </label>
           </div>
           <div className="register-login__register-email">
             <input
@@ -82,11 +93,12 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
               name="email"
               value={data.email}
               onChange={(e) => {
-                handleLabelStyle(e);
+                handleLabelStyle([[emailInput, emailLabel]]);
                 handleInputs(e);
               }}
+              ref={emailInput}
             />
-            <label htmlFor="email">e-mail </label>
+            <label htmlFor="email" ref={emailLabel}>e-mail </label>
           </div>
           <div className="register-login__register-password">
             <input
@@ -94,11 +106,12 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
               name="password"
               value={data.password}
               onChange={(e) => {
-                handleLabelStyle(e);
+                handleLabelStyle([[passwordInput, passwordLabel]]);
                 handleInputs(e);
               }}
+              ref={passwordInput}
             />
-            <label htmlFor="password">password </label>
+            <label htmlFor="password" ref={passwordLabel}>password </label>
           </div>
           <button
             type="submit"
@@ -106,7 +119,7 @@ const RegisterComponent = ({ data, register, handleLabelStyle }) => {
             name="submit"
             onClick={async (e) => {
               await handleSubmit(e);
-              // handleLabelStyle(e);
+              handleLabelStyle([[firstNameInput, firstNameLabel], [lastNameInput, lastNameLabel], [emailInput, emailLabel], [passwordInput, passwordLabel]]);
             }}
           >
             Register!
