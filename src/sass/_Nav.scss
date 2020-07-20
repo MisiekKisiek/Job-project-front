@@ -15,8 +15,8 @@
     display: flex;
     justify-content: right;
     .main-nav__list-item {
-      position: relative;
       @include flex-mother();
+      position: relative;
       flex-grow: 1;
       margin: 0 auto;
       list-style-type: none;

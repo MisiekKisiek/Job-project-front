@@ -1,5 +1,5 @@
 export const token = (
-  state = { token: "aaa", loginStatus: "unlogged" },
+  state = { token: "aaa", loginStatus: "logged" },
   action
 ) => {
   switch (action.type) {

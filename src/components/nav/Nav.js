@@ -68,13 +68,13 @@ class Nav extends Component {
               <i className="fas fa-bars"></i>
             </div>
             <li className="main-nav__item">
-              <a className="main-nav__item-link">
+              <div className="main-nav__item-link">
                 <img
                   className="main-nav__item-link-img"
                   src={require("../../images/logo.png")}
                   alt="logo"
                 />
-              </a>
+              </div>
             </li>
             <PermissibleRender
               userPermissions={[this.props.loginStatus]}
@@ -102,12 +102,12 @@ class Nav extends Component {
                 <NavLink
                   to="/Creating-page"
                   activeClassName="selected"
-                  className="main-nav__item-link main__nav_tools"
+                  className="main-nav__item-link main-nav_tools"
                   onClick={() => {
                     this.navCollapse("normal");
                   }}
                 >
-                  Tools
+                  Create Page
                 </NavLink>
               </li>
             </PermissibleRender>

@@ -17,6 +17,8 @@ class DocumentationRow extends Component {
     } else if (actionType === "name") {
       const name = `${row[1]} ${row[2]}`;
       return name;
+    } else {
+      return
     }
   };
 
@@ -28,6 +30,7 @@ class DocumentationRow extends Component {
           return (
             <TransmittalElement
               key={index}
+              name={""}
               number={""}
               eleDate={""}
               paperDate={""}
@@ -39,6 +42,7 @@ class DocumentationRow extends Component {
           return (
             <TransmittalElement
               key={index}
+              name={this.docNameAndCode(this.props.row, "name")}
               number={e}
               eleDate={rowNew[index + 1]}
               paperDate={rowNew[index + 2]}
@@ -51,6 +55,7 @@ class DocumentationRow extends Component {
     });
     return transmittal;
   };
+
   render() {
     return (
       <div className="documentation-register__row">

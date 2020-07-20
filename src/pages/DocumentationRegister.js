@@ -45,16 +45,8 @@ class DocumentationRegister extends Component {
 
   componentDidMount() {
     this.getDocumentationData();
-    this.props.checkIsLogged(this.props.token, this.props.logout);
+    // this.props.checkIsLogged(this.props.token, this.props.logout);
   }
-
-  // componentWillUnmount() {
-  //   this.setState({
-  //     documentationAll: [],
-  //     filterName: "",
-  //     filterDate: "",
-  //   });
-  // }
 
   render() {
     return (

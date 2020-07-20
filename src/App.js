@@ -57,7 +57,7 @@ class App extends Component {
               <Nav></Nav>
             </nav>
             <main className="main">
-              <NewsComponent></NewsComponent>
+              {this.props.loginStatus === "unlogged" ? <></> : <NewsComponent></NewsComponent>}
               <Switch>
                 <Route exact path="/">
                   {this.props.loginStatus === "unlogged"

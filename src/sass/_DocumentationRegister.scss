@@ -4,7 +4,7 @@
 .documentation-register {
   @include flex-mother($flex-direction: column);
   min-width: 300%;
-  overflow: scroll;
+  overflow: auto;
   .documentation-register__filter {
     @include flex-mother($align-items: center);
     position: fixed;
@@ -111,7 +111,7 @@
               }
               .documentation-register__transmittal-popup-wrap-small {
                 flex-basis: 65%;
-                .documentation-register__transmittal-popup-number {
+                .documentation-register__transmittal-popup-name {
                   padding: 10px;
                   font-size: 22px;
                   font-weight: bold;
@@ -119,7 +119,7 @@
                 }
               }
               .documentation-register__transmittal-popup-chat {
-                @include flex-mother($flex-direction: column);
+                @include flex-mother($flex-direction: column,$justify-content:space-between);
                 flex-basis: 35%;
                 padding: 10px;
                 border-radius: 5px;
@@ -214,6 +214,7 @@
       }
     }
     .documentation-register__wrap {
+      overflow: scroll;
       .documentation-register__row {
         .documentation-register__code {
           flex-basis: 340px;

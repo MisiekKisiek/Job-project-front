@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   NavLink,
-  BrowserRouter as Router,
 } from "react-router-dom";
 
 const TransmittalPopup = (props) => {
-  const { number, paperDate, eleDate, revision, status } = props.info;
+  const { name, number, paperDate, eleDate, revision, status } = props.info;
+  const [comment, setcomment] = useState("")
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:9000/Send-comment', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({ comment, number }),
+    }).then(e => e.json())
+      .then(e => { console.log(e) })
+      .catch(err => { console.log(err) })
+    setcomment("");
+  }
   return (
     <>
       <div className="documentation-register__transmittal-popup">
@@ -23,9 +38,12 @@ const TransmittalPopup = (props) => {
             <div>x</div>
           </NavLink>
           <div className="documentation-register__transmittal-popup-wrap-small">
-            <h1 className="documentation-register__transmittal-popup-number">
-              {number === "" ? "none" : number}
+            <h1 className="documentation-register__transmittal-popup-name">
+              {name}
             </h1>
+            <div className="documentation-register__transmittal-popup-number">
+              <strong>Transmittal :</strong>{` ${number === "" ? "none" : number}`}
+            </div>
             <div className="documentation-register__transmittal-popup-eledate">{`Electronic submit date: ${
               eleDate === "" ? "none" : eleDate.split("T")[0]
               }`}</div>
@@ -44,7 +62,9 @@ const TransmittalPopup = (props) => {
             </div>
           </div>
           <div className="documentation-register__transmittal-popup-chat">
-            <div className="documentation-register__transmittal-popup-chat-window"></div>
+            <div className="documentation-register__transmittal-popup-chat-window">
+              {comment}
+            </div>
             <form
               action="submit"
               className="documentation-register__transmittal-popup-chat-form"
@@ -54,10 +74,13 @@ const TransmittalPopup = (props) => {
                 id="chat-input"
                 className="documentation-register__transmittal-popup-chat-input"
                 placeholder="Chat about submision"
+                value={comment}
+                onChange={(e) => { setcomment(e.target.value) }}
               />
               <button
                 type="submit"
                 className="documentation-register__transmittal-popup-chat-send btn btn-primary"
+                onClick={(e) => { sendMessage(e) }}
               >
                 Send
               </button>
