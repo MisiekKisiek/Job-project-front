@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   NavLink,
 } from "react-router-dom";
 
+import TransmittalSingleComment from './TransmittalSingleComment'
+
 const TransmittalPopup = (props) => {
   const { name, number, paperDate, eleDate, revision, status } = props.info;
-  const [comment, setcomment] = useState("")
+  const [comment, setcomment] = useState("");
+  const [allComments, setallComments] = useState("");
+
+  useEffect(() => {
+    getComments()
+    console.log(allComments)
+  }, [allComments])
+
+  const getComments = async () => {
+    await fetch('http://localhost:9000/Get-comments', {
+      method: 'POST',
+      headers: { "Content-type": "application/json" },
+      mode: "cors",
+      body: JSON.stringify({ number })
+    }).then(e => e.json()).then(e => {
+      if (e !== null && e.comments.toString() !== allComments.toString()) {
+        setallComments(e.comments)
+      }
+    })
+  }
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -20,7 +41,14 @@ const TransmittalPopup = (props) => {
       .then(e => { console.log(e) })
       .catch(err => { console.log(err) })
     setcomment("");
+    getComments()
   }
+
+  const createComments = () => {
+    const comments = allComments.map(e => <TransmittalSingleComment key={e.date} comment={e}></TransmittalSingleComment>)
+    return comments
+  }
+
   return (
     <>
       <div className="documentation-register__transmittal-popup">
@@ -63,7 +91,7 @@ const TransmittalPopup = (props) => {
           </div>
           <div className="documentation-register__transmittal-popup-chat">
             <div className="documentation-register__transmittal-popup-chat-window">
-              {comment}
+              {allComments === "" ? "" : createComments()}
             </div>
             <form
               action="submit"

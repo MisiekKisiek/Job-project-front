@@ -18,7 +18,6 @@ class FilterComponent extends Component {
 
   scrollElement = (filterPanel) => {
     document.addEventListener("scroll", () => {
-      console.log(window.innerWidth);
       if (window.innerWidth > 700) {
         if (window.pageYOffset > 100) {
           filterPanel.classList.add("documentation-register__filter--scrolled");
