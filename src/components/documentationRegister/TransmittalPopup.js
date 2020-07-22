@@ -3,9 +3,12 @@ import {
   NavLink,
 } from "react-router-dom";
 
+import { connect } from 'react-redux'
+
 import TransmittalSingleComment from './TransmittalSingleComment'
 
 const TransmittalPopup = (props) => {
+  const { first_name, last_name } = props;
   const { name, number, paperDate, eleDate, revision, status } = props.info;
   const [comment, setcomment] = useState("");
   const [allComments, setallComments] = useState("");
@@ -36,7 +39,7 @@ const TransmittalPopup = (props) => {
         "Content-type": "application/json",
       },
       mode: "cors",
-      body: JSON.stringify({ comment, number }),
+      body: JSON.stringify({ comment, number, author: `${first_name} ${last_name}` }),
     }).then(e => e.json())
       .then(e => { console.log(e) })
       .catch(err => { console.log(err) })
@@ -120,4 +123,9 @@ const TransmittalPopup = (props) => {
   );
 };
 
-export default TransmittalPopup;
+const MSTP = state => {
+  return ({ first_name: state.token.first_name, last_name: state.token.last_name })
+}
+
+
+export default connect(MSTP, null)(TransmittalPopup);

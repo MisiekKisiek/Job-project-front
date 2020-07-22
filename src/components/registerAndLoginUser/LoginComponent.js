@@ -42,7 +42,7 @@ const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
         }
       })
       .then((e) => {
-        token(e.token);
+        token(e.token, e.first_name, e.last_name);
       })
       .catch((err) => {
         console.log("Błąd:", err);
@@ -87,8 +87,8 @@ const LoginComponent = ({ data, login, token, handleLabelStyle }) => {
             type="submit"
             className=" btn btn-primary"
             name="submit"
-            onClick={(e) => {
-              handleSubmit(e);
+            onClick={async (e) => {
+              await handleSubmit(e);
               handleLabelStyle([[firstInput, firstLabel], [secondInput, secondLabel]]);
             }}
           >

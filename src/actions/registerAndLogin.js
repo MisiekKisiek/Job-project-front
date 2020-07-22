@@ -12,9 +12,11 @@ export const login = (email, password) => ({
   password,
 });
 
-export const token = (token) => ({
+export const token = (token, first_name, last_name) => ({
   type: "TOKEN",
   token,
+  first_name,
+  last_name
 });
 
 export const logout = (logout) => ({
