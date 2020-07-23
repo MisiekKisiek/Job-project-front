@@ -3,16 +3,37 @@ import React, { Component } from "react";
 class FilterComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.labelFirst = React.createRef();
-    this.inputFirst = React.createRef();
+    this.state = {
+      inputName: "",
+      inputDate: "",
+    };
+    this.labelText = React.createRef();
+    this.inputText = React.createRef();
+  }
+
+  handleFilterInputs = (e) => {
+    e.preventDefault();
+    if (e.target.type === "text") {
+      this.setState({
+        inputName: e.target.value,
+      });
+    } else if (e.target.type === "date") {
+      this.setState({
+        inputDate: e.target.value,
+      });
+    } else if (e.target.type === "button") {
+      this.setState({
+        filterName: "",
+        filterDate: "",
+      });
+    }
   }
 
   handleLabelStyle = () => {
-    if (this.inputFirst.current.value !== "") {
-      this.labelFirst.current.classList.add("active");
+    if (this.inputText.current.value !== "") {
+      this.labelText.current.classList.add("active");
     } else {
-      this.labelFirst.current.classList.remove("active");
+      this.labelText.current.classList.remove("active");
     }
   };
 
@@ -48,14 +69,15 @@ class FilterComponent extends Component {
           <input
             type="text"
             name="filter-name"
-            value={this.props.text}
+            value={this.state.inputName}
             onChange={(e) => {
-              this.props.inputHandler(e);
+              this.handleFilterInputs(e)
+              // this.props.inputHandler(e);
               this.handleLabelStyle();
             }}
-            ref={this.inputFirst}
+            ref={this.inputText}
           />
-          <label htmlFor="filter-name" ref={this.labelFirst}>
+          <label htmlFor="filter-name" ref={this.labelText}>
             Search by name:
           </label>
         </div>
@@ -63,10 +85,10 @@ class FilterComponent extends Component {
           <input
             type="date"
             name="filter-date"
+            // value={this.props.inputDate}
             onChange={(e) => {
               this.props.inputHandler(e);
             }}
-            value={this.props.date}
           />
           <label htmlFor="filter-date">Search by date: </label>
         </div>

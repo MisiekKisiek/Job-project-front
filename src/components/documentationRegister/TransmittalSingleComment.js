@@ -17,8 +17,8 @@ const TransmittalSingleComment = (props) => {
     }
 
     return (<>
-        <div className="documentation-register__transmittal-popup-comment-wrap">
-            <div className={`${first_name} ${last_name}` === author ? "documentation-register__transmittal-popup-comment documentation-register__transmittal-popup-comment--self" : "documentation-register__transmittal-popup-comment"}>
+        <div className={`${first_name} ${last_name}` === author ? "documentation-register__transmittal-popup-comment-wrap documentation-register__transmittal-popup-comment-wrap--self" : "documentation-register__transmittal-popup-comment-wrap"}>
+            <div className="documentation-register__transmittal-popup-comment">
                 <div>
                     <div className="documentation-register__transmittal-popup-comment-author" title={author}>{splitAuthor()}</div>
                     <div className="documentation-register__transmittal-popup-comment-date">{splitDate(date)[0] + " " + splitDate(date)[1]}</div>

@@ -133,7 +133,8 @@
                   flex-basis: 90%;
                   @include flex-mother($flex-direction:column, $justify-content:flex-start);
                   overflow-y: scroll;
-                  /* width */
+                  scrollbar-width: thin;
+                  scrollbar-color: transparent ; 
                   &::-moz-scrollbar {
                     width: 10px;
                   }
@@ -155,17 +156,16 @@
                   }
                   .documentation-register__transmittal-popup-comment-wrap{
                     @include flex-mother($align-items: center);
-                    padding: 5px 0;
+                    padding: 5px 5px 0 5px;
                     .documentation-register__transmittal-popup-comment{
                       @include flex-mother($flex-direction:column);
                       min-height: 40px;
                       max-width: 100%;
-                      // min-width: 100%;
                       padding: 0 15px;
-                      background-color: rgba(0, 123, 255,0.8);
-                      box-shadow: 0 0 20px 2px inset rgba(0, 123, 255,1);
                       border-radius: 20px;
-                      color: #fff;
+                      background-color: rgba(255,255,255,0.1);
+                      box-shadow: 0 0 20px 2px inset rgba(230,230,230,0.6);
+                      color:black;
                       >div:first-child{
                         @include flex-mother();
                         margin: 5px;
@@ -191,19 +191,25 @@
                         max-width: 100%;
                         margin-bottom: 5px;
                         padding: 5px;
-                        border-radius: 4px;
-                        background-color: #fff;
-                        box-shadow: 0 0 4px 1px inset #aaa;
+                        border-top: 1px solid rgba(0,0,0,0.2);
                         color: black;
                         word-wrap: break-word;
                         overflow: hidden;
                       }
                     }
-                    .documentation-register__transmittal-popup-comment--self{
-                      justify-self: flex-end;
-                    }
                   }
-                  
+                  .documentation-register__transmittal-popup-comment-wrap--self{
+                    justify-content: flex-end;
+                    
+                    .documentation-register__transmittal-popup-comment{
+                      background-color: rgba(101, 162, 255, 0.8);
+                      box-shadow: 0 0 20px 2px inset rgba(78, 142, 236,1);
+                      .documentation-register__transmittal-popup-comment-message{
+
+                      }
+                  }
+                    
+                  }
                 }
                 .documentation-register__transmittal-popup-chat-form {
                   @include flex-mother();

@@ -41,10 +41,12 @@ const TransmittalPopup = (props) => {
       mode: "cors",
       body: JSON.stringify({ comment, number, author: `${first_name} ${last_name}` }),
     }).then(e => e.json())
-      .then(e => { console.log(e) })
+      .then(e => {
+        console.log(e);
+        setcomment("");
+        getComments()
+      })
       .catch(err => { console.log(err) })
-    setcomment("");
-    getComments()
   }
 
   const createComments = () => {
