@@ -27,7 +27,7 @@ class FilterComponent extends Component {
         filterDate: "",
       });
     }
-  }
+  };
 
   handleLabelStyle = () => {
     if (this.inputText.current.value !== "") {
@@ -71,7 +71,7 @@ class FilterComponent extends Component {
             name="filter-name"
             value={this.state.inputName}
             onChange={(e) => {
-              this.handleFilterInputs(e)
+              this.handleFilterInputs(e);
               // this.props.inputHandler(e);
               this.handleLabelStyle();
             }}
@@ -100,7 +100,7 @@ class FilterComponent extends Component {
             this.handleLabelStyle();
           }}
         >
-          Clear results
+          Search!
         </button>
       </div>
     );
