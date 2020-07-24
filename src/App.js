@@ -82,6 +82,7 @@ class App extends Component {
                       <DocumentationRegister
                         checkIsLogged={this.checkIsLogged}
                         token={this.props.token}
+                        handleLabelStyle={this.handleLabelStyle}
                       ></DocumentationRegister>
                     )}
                 </Route>

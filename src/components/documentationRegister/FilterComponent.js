@@ -9,10 +9,11 @@ class FilterComponent extends Component {
     };
     this.labelText = React.createRef();
     this.inputText = React.createRef();
+    this.labelDate = React.createRef();
+    this.inputDate = React.createRef();
   }
 
   handleFilterInputs = (e) => {
-    e.preventDefault();
     if (e.target.type === "text") {
       this.setState({
         inputName: e.target.value,
@@ -21,21 +22,8 @@ class FilterComponent extends Component {
       this.setState({
         inputDate: e.target.value,
       });
-    } else if (e.target.type === "button") {
-      this.setState({
-        filterName: "",
-        filterDate: "",
-      });
     }
-  };
-
-  handleLabelStyle = () => {
-    if (this.inputText.current.value !== "") {
-      this.labelText.current.classList.add("active");
-    } else {
-      this.labelText.current.classList.remove("active");
-    }
-  };
+  }
 
   scrollElement = (filterPanel) => {
     document.addEventListener("scroll", () => {
@@ -71,9 +59,8 @@ class FilterComponent extends Component {
             name="filter-name"
             value={this.state.inputName}
             onChange={(e) => {
-              this.handleFilterInputs(e);
-              // this.props.inputHandler(e);
-              this.handleLabelStyle();
+              this.handleFilterInputs(e)
+              this.props.handleLabelStyle([[this.inputText, this.labelText]]);
             }}
             ref={this.inputText}
           />
@@ -85,19 +72,20 @@ class FilterComponent extends Component {
           <input
             type="date"
             name="filter-date"
-            // value={this.props.inputDate}
+            value={this.props.inputDate}
             onChange={(e) => {
-              this.props.inputHandler(e);
+              this.handleFilterInputs(e);
             }}
+            ref={this.inputDate}
           />
-          <label htmlFor="filter-date">Search by date: </label>
+          <label htmlFor="filter-date" ref={this.labelDate}>Search by date: </label>
         </div>
         <button
           className="documentation-register__filter-clear-button btn btn-primary"
           type="button"
           onClick={async (e) => {
-            await this.props.inputHandler(e);
-            this.handleLabelStyle();
+            await this.props.inputHandler(e, this.inputText.current, this.inputDate.current);
+            this.props.handleLabelStyle([[this.inputText, this.labelText]]);
           }}
         >
           Search!

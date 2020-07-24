@@ -23,16 +23,6 @@ class TransmittalElement extends Component {
             <div className="documentation-register__transmittal-element documentation-register__transmittal-number">
               {this.props.number}
             </div>
-            {/* <div className="documentation-register__transmittal-element documentation-register__transmittal-ele-date">
-              {typeof this.props.eleDate === "string"
-                ? `${this.props.eleDate.split("T")[0]}`
-                : this.props.eleDate}
-            </div>
-            <div className="documentation-register__transmittal-element documentation-register__transmittal-paper-date">
-              {typeof this.props.paperDate === "string"
-                ? `${this.props.paperDate.split("T")[0]}`
-                : this.props.paperDate}
-            </div> */}
             <div className="documentation-register__transmittal-element documentation-register__transmittal-revision">
               {this.props.revision}
             </div>

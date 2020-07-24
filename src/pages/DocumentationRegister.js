@@ -25,22 +25,12 @@ class DocumentationRegister extends Component {
       });
   }
 
-  async handleInputsFilter(e) {
+  async handleInputsFilter(e, text, date) {
     e.preventDefault();
-    if (e.target.type === "text") {
-      this.setState({
-        filterName: e.target.value,
-      });
-    } else if (e.target.type === "date") {
-      this.setState({
-        filterDate: e.target.value,
-      });
-    } else if (e.target.type === "button") {
-      this.setState({
-        filterName: "",
-        filterDate: "",
-      });
-    }
+    this.setState({
+      filterName: text.value,
+      filterDate: date.value
+    })
   }
 
   componentDidMount() {
@@ -53,6 +43,7 @@ class DocumentationRegister extends Component {
       <>
         <div className="documentation-register">
           <FiletrComponent
+            handleLabelStyle={this.props.handleLabelStyle}
             inputHandler={this.handleInputsFilter}
             text={this.state.filterName}
             date={this.state.filterDate}

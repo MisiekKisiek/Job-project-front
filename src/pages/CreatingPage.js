@@ -71,7 +71,7 @@ class CreatingPage extends Component {
       })
       .then((e) => {
         window.open(`http://localhost:9000/downloadPage`);
-      }).catch(err => console.log('Bląd', err));
+      }).catch(err => alert('Bląd. Prawdopodobnie nie wybrałeś konkretnej dokumentacji lub rewizji.'));
   };
 
   async getSelectOptions() {
@@ -92,11 +92,6 @@ class CreatingPage extends Component {
   componentDidMount() {
     this.getSelectOptions();
     localStorage.setItem("dupa", "cycki");
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem("dupa", "cycki");
-    localStorage.setItem("fsdf", "fsd");
   }
 
   handleAddElementButton = (e) => {
